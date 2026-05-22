@@ -1,4 +1,5 @@
 package com.example.entrack;
+import com.example.entrack.service.EmployeeService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,12 @@ import java.util.*;
 @RestController
 public class HelloController {
 
+    private final EmployeeService employeeService;
+
+    public HelloController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
     @GetMapping("/")
     public String home() {
         return "Welcome";
@@ -18,11 +25,7 @@ public class HelloController {
 
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
-        List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "John", "IT"));
+    return employeeService.getEmployees();
 
-        employees.add(new Employee(2, "Udita", "IT"));
-        employees.add(new Employee(3, "Rahul", "IT"));
-        return employees;
     }
 }
