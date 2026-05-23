@@ -10,6 +10,7 @@ public class HelloController {
     private final EmployeeService employeeService;
 
     public HelloController(EmployeeService employeeService) {
+
         this.employeeService = employeeService;
     }
 
@@ -35,11 +36,10 @@ public class HelloController {
     }
     @DeleteMapping("/employees/{id}")
     public String deleteEmployeeById(@PathVariable int id){
-        boolean deleted = employeeService.deleteEmployee(id);
-        if(deleted){
+       employeeService.deleteEmployee(id);
+
             return "employee deleted successfuly";
-        }
-        return "employee not found";
+
     }
 
 }

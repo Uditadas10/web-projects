@@ -1,43 +1,33 @@
 package com.example.entrack.service;
 
 import com.example.entrack.Employee;
+import com.example.entrack.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 
 public class EmployeeService {
-    public List<Employee> employees  = new ArrayList<>();
-        public EmployeeService() {
-            employees.add(new Employee(1, "John", "IT"));
-            employees.add(new Employee(2, "Udita", "IT"));
-            employees.add(new Employee(3, "Rahul", "IT"));
+    private final EmployeeRepository employeeRepository;
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
 
     }
-    public List<Employee> getEmployees(){
-        return employees;
+    public List<Employee>  getEmployees(){
+        return employeeRepository.findAll();
     }
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
+    public Employee addEmployee(Employee employee){
+        return employeeRepository.save(employee);
     }
-    public Employee getEmployeeById(int id) {
-        for(Employee employee : employees){
-            if(employee.getId()==id){
-                return employee;
-            }
-        }
-        return null;
+    public Employee getEmployeeById(int id){
+        Optional<Employee> employee= employeeRepository.findById(id);
+        return employee.orElse(null);
     }
-    public boolean deleteEmployee(int id){
-            for (Employee employee: employees){
-                if(employee.getId()==id){
-                    employees.remove(employee);
-
-                    return true;
-                }
-            }
-            return false;
+    public void deleteEmployee(int id){
+        employeeRepository.deleteById(id);
     }
 }
 
