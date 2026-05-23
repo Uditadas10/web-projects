@@ -29,5 +29,8 @@ public class HelloController {
 
         return "employee added successfuly";
     }
-
+    @GetMapping("/employees/{id}")
+    public Employee getEmployeeById(@PathVariable int id) {
+        return employeeService.getEmployeeById(id);
+    }
 }
