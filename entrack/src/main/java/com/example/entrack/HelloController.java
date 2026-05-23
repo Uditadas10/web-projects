@@ -1,13 +1,8 @@
 package com.example.entrack;
 import com.example.entrack.service.EmployeeService;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.*;
+
 
 @RestController
 public class HelloController {
@@ -28,4 +23,11 @@ public class HelloController {
     return employeeService.getEmployees();
 
     }
+    @PostMapping("/employees")
+    public String addEmployee(@RequestBody Employee employee) {
+        employeeService.addEmployee(employee);
+
+        return "employee added successfuly";
+    }
+
 }
