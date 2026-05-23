@@ -29,6 +29,16 @@ public class EmployeeService {
         }
         return null;
     }
+    public boolean deleteEmployee(int id){
+            for (Employee employee: employees){
+                if(employee.getId()==id){
+                    employees.remove(employee);
+
+                    return true;
+                }
+            }
+            return false;
+    }
 }
 
 

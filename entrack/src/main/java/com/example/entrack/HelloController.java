@@ -33,4 +33,13 @@ public class HelloController {
     public Employee getEmployeeById(@PathVariable int id) {
         return employeeService.getEmployeeById(id);
     }
+    @DeleteMapping("/employees/{id}")
+    public String deleteEmployeeById(@PathVariable int id){
+        boolean deleted = employeeService.deleteEmployee(id);
+        if(deleted){
+            return "employee deleted successfuly";
+        }
+        return "employee not found";
+    }
+
 }
