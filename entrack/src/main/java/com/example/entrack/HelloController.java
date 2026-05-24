@@ -41,5 +41,9 @@ public class HelloController {
             return "employee deleted successfuly";
 
     }
-
+    @PutMapping("/employees/{id}")
+    public Employee updatedEmployee(@PathVariable int id,
+                                    @RequestBody Employee employee) {
+       return employeeService.updateEmployee(id, employee);
+    }
 }

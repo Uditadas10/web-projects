@@ -29,5 +29,16 @@ import jakarta.persistence.Id;
     public String getDepertment() {
         return depertment;
     }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setDepertment(String depertment) {
+            this.depertment = depertment;
+        }
 }
 

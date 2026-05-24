@@ -29,6 +29,17 @@ public class EmployeeService {
     public void deleteEmployee(int id){
         employeeRepository.deleteById(id);
     }
+    public Employee updateEmployee(int id ,Employee updatedEmployee){
+        Optional<Employee> existingEmployee = employeeRepository.findById(id);
+        if(existingEmployee.isPresent()){
+            Employee employee = existingEmployee.get();
+            employee.setName(updatedEmployee.getName());
+            employee.setDepertment(updatedEmployee.getDepertment());
+
+            return employeeRepository.save(employee);
+        }
+        return null;
+    }
 }
 
 
