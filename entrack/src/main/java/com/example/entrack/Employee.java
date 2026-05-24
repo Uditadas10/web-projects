@@ -1,12 +1,18 @@
 package com.example.entrack;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
     @Entity
     public class Employee{
         @Id
+        @Positive(message = "Id must be positive")
         private int id;
+        @NotBlank(message = "Name cannot be empty")
         private String name;
+        @NotBlank(message = "Department cannot be empty")
         private String depertment;
+
         public Employee() {
 
         }

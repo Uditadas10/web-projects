@@ -3,43 +3,46 @@ package com.example.entrack.service;
 import com.example.entrack.Employee;
 import com.example.entrack.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
+import com.example.entrack.exception.ResourceNotException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-
 public class EmployeeService {
+
     private final EmployeeRepository employeeRepository;
+
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-
     }
-    public List<Employee>  getEmployees(){
+
+    public List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
-    public Employee addEmployee(Employee employee){
+
+    public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
-    public Employee getEmployeeById(int id){
-        Optional<Employee> employee= employeeRepository.findById(id);
-        return employee.orElse(null);
+
+    public Employee getEmployeeById(int id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotException("Employee not found"));
     }
-    public void deleteEmployee(int id){
+
+    public void deleteEmployee(int id) {
         employeeRepository.deleteById(id);
     }
-    public Employee updateEmployee(int id ,Employee updatedEmployee){
-        Optional<Employee> existingEmployee = employeeRepository.findById(id);
-        if(existingEmployee.isPresent()){
-            Employee employee = existingEmployee.get();
-            employee.setName(updatedEmployee.getName());
-            employee.setDepertment(updatedEmployee.getDepertment());
 
-            return employeeRepository.save(employee);
-        }
-        return null;
+    public Employee updateEmployee(int id, Employee updatedEmployee) {
+
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotException("Employee not found"));
+
+        employee.setName(updatedEmployee.getName());
+        employee.setDepertment(updatedEmployee.getDepertment());
+
+        return employeeRepository.save(employee);
     }
 }
-
-

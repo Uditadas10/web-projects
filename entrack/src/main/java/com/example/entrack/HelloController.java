@@ -2,7 +2,8 @@ package com.example.entrack;
 import com.example.entrack.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
+import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
 
 @RestController
 public class HelloController {
@@ -25,25 +26,24 @@ public class HelloController {
 
     }
     @PostMapping("/employees")
-    public String addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Employee addEmployee(@Valid @RequestBody Employee employee) {
 
-        return "employee added successfuly";
+        return employeeService.addEmployee(employee);
     }
     @GetMapping("/employees/{id}")
     public Employee getEmployeeById(@PathVariable int id) {
         return employeeService.getEmployeeById(id);
     }
     @DeleteMapping("/employees/{id}")
-    public String deleteEmployeeById(@PathVariable int id){
-       employeeService.deleteEmployee(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEmployeeById(@PathVariable int id){
 
-            return "employee deleted successfuly";
-
+        employeeService.deleteEmployee(id);
     }
     @PutMapping("/employees/{id}")
     public Employee updatedEmployee(@PathVariable int id,
-                                    @RequestBody Employee employee) {
+                                    @Valid @RequestBody Employee employee) {
        return employeeService.updateEmployee(id, employee);
     }
 }
