@@ -3,13 +3,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
     @Entity
     public class Employee{
         @Id
-        @Positive(message = "Id must be positive")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
+
         @NotBlank(message = "Name cannot be empty")
         private String name;
+
         @NotBlank(message = "Department cannot be empty")
         private String depertment;
 
